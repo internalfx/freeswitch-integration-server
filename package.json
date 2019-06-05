@@ -1,0 +1,32 @@
+{
+  "name": "@internalfx/freeswitch-integration-server",
+  "publishConfig": {
+    "access": "public"
+  },
+  "description": "An open source API server for FreeSwitch",
+  "version": "0.1.0",
+  "homepage": "https://github.com/internalfx/freeswitch-integration-server",
+  "author": {
+    "name": "Bryan Morris",
+    "email": "bryan@internalfx.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/internalfx/freeswitch-integration-server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/internalfx/freeswitch-integration-server/issues"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "dependencies": {
+    "@internalfx/substruct": "^2.1.0",
+    "ejs": "^2.6.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.0.0",
+    "eslint-plugin-html": "^4.0.5",
+    "eslint-plugin-vue": "^4.7.1",
+    "standard": "^12.0.1"
+  }
+}
