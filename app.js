@@ -1,6 +1,9 @@
+let argv = require('minimist')(process.argv.slice(2))
 let substruct = require('@internalfx/substruct')
 
-substruct.configure()
+console.log(__dirname)
+
+substruct.configure({ appDir: __dirname })
 
 substruct.start().then(async function ({ koa, config }) {
   console.log('Server Started...')
