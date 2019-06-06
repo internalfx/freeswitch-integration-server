@@ -2,7 +2,7 @@ let argv = require('minimist')(process.argv.slice(2))
 let pjson = require('./package.json')
 let substruct = require('@internalfx/substruct')
 let path = require('path')
-let config = null
+let configFile = null
 let HELPTEXT = `
     FreeSWITCH Integration Server v${pjson.version}
 
@@ -13,6 +13,8 @@ let HELPTEXT = `
 `
 
 let main = async function () {
+  process.env.NODE_ENV = argv.dev ? 'development' : 'production'
+
   if (argv.help) {
     console.log(HELPTEXT)
     return
@@ -23,16 +25,17 @@ let main = async function () {
   configPath = path.join(process.cwd(), configPath)
 
   try {
-    config = require(configPath)
+    configFile = require(configPath)
   } catch (err) {
     console.log('CONFIG FILE NOT FOUND! ======================')
     throw err
   }
 
-  config.runDir = process.cwd()
-  config.appDir = __dirname
-
-  substruct.configure(config)
+  substruct.configure({
+    runDir: process.cwd(),
+    appDir: __dirname,
+    fsis: configFile
+  })
 
   substruct.start().then(async function ({ koa, config }) {
     console.log('Server Started...')
