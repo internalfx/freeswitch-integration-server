@@ -2,6 +2,10 @@
 module.exports = async function (config) {
   let { Nuxt, Builder } = require('nuxt')
   let nuxtConfig = require('../../nuxt.config.js')
+
+  // Config Overrides
+  nuxtConfig.dev = (config.env !== 'production')
+
   let nuxt = new Nuxt(nuxtConfig)
 
   if (nuxt.options.dev) {
@@ -10,5 +14,3 @@ module.exports = async function (config) {
 
   return nuxt
 }
-
-
