@@ -14,19 +14,12 @@ module.exports = {
   ],
   port: 8000,
   services: [
-    'nuxt'
+    'nuxt',
+    'nedb'
   ],
   session: {
     sessionCookieName: 'x-fsis-token',
-    sessionCookieMaxAge: 1000 * 60 * 60 * 24 * 365,
-    load: function (token) {
-      // console.log('You need to define a config.session.load function!')
-      return null
-    },
-    save: function (token, data) {
-      // console.log('You need to define a config.session.save function!')
-      return null
-    }
+    sessionCookieMaxAge: 1000 * 60 * 60 * 24 * 365
   },
   templateEngine: 'ejs'
 }

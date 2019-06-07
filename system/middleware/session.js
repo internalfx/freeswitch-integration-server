@@ -16,43 +16,21 @@ const createToken = function (length) {
 }
 
 module.exports = function (config) {
-  let loadSession = async function () {
-    return {}
-  }
-
-  let saveSession = async function () {
-    return {}
-  }
-
   let cookieName = config.session.sessionCookieName
-
-  let parseToken = function (header) {
-    let token = /Bearer\s([a-zA-Z0-9]+)/.exec(decodeURI(header))
-    if (token) {
-      return token[1]
-    }
-  }
 
   return async function (ctx, next) {
     let token
-    let needsCookie = false
+    let { sessions } = substruct.services.nedb
 
-    if (ctx.header['authorization']) {
-      token = parseToken(ctx.header['authorization'])
-    } else if (ctx.header[cookieName]) {
-      token = ctx.header[cookieName]
-    } else if (ctx.cookies.get(cookieName)) {
-      token = parseToken(ctx.cookies.get(cookieName))
-    }
+    token = ctx.cookies.get(cookieName)
 
     if (token == null || token.length < 40) {
       token = createToken(40)
-      needsCookie = true
       ctx.cookies.set(cookieName, token, { maxAge: config.session.sessionCookieMaxAge })
     }
 
-    ctx.state.session = await loadSession(token)
-    ctx.state.token = token
+    let sessionRecord = await sessions.findOne({ token })
+    ctx.state.session = sessionRecord ? sessionRecord.data : {}
 
     let prevSession = hash(ctx.state.session)
 
@@ -61,11 +39,13 @@ module.exports = function (config) {
     let nextSession = hash(ctx.state.session)
 
     if (nextSession !== prevSession) {
-      await saveSession(token, ctx.state.session)
-    }
+      let record = await sessions.findOne({ token })
 
-    if (needsCookie) {
-      // ctx.cookies.set(cookieName, token, { maxAge: config.session.sessionCookieMaxAge })
+      if (record) {
+        await sessions.update({ token }, { $set: { data: ctx.state.session, action: 'update' } })
+      } else {
+        await sessions.insert({ data: ctx.state.session, token, action: 'insert' })
+      }
     }
   }
 }
