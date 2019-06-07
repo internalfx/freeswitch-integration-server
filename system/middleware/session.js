@@ -26,7 +26,6 @@ module.exports = function (config) {
 
     if (token == null || token.length < 40) {
       token = createToken(40)
-      // ctx.cookies.set(cookieName, token, { maxAge: config.session.sessionCookieMaxAge })
     }
 
     let sessionRecord = await sessions.findOne({ token })

@@ -34,19 +34,23 @@ export default {
 
 <template>
   <v-container>
-    <h1>Enter Password</h1>
-    <v-form @submit.prevent="submit">
-      <v-text-field
-        type="password"
-        v-model="password"
-        label="Password"
-      />
+    <v-layout>
+      <v-flex offset-sm2 sm8 offset-md3 md6 offset-lg4 lg4>
+        <h1>Enter Password</h1>
+        <v-form @submit.prevent="submit">
+          <v-text-field
+            type="password"
+            v-model="password"
+            label="Password"
+          />
 
-      <v-btn color="primary" type="submit">submit</v-btn>
-    </v-form>
-    <v-alert :value="error" type="error">
-      {{error}}
-    </v-alert>
+          <v-btn color="primary" type="submit">submit</v-btn>
+        </v-form>
+        <v-alert :value="error" type="error">
+          {{error}}
+        </v-alert>
+      </v-flex>
+    </v-layout>
   </v-container>
 </template>
 

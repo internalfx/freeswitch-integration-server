@@ -20,6 +20,5 @@ module.exports = {
   session: {
     sessionCookieName: 'auth.fsis.local',
     sessionCookieMaxAge: 1000 * 60 * 60 * 24 * 365
-  },
-  templateEngine: 'ejs'
+  }
 }

@@ -10,9 +10,6 @@ module.exports = {
           logout: { url: '/api/auth/logout', method: 'post' },
           user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
         },
-        // rewriteRedirects: true,
-        // fullPathRedirect: true,
-        // tokenRequired: false,
         tokenType: false
       }
     },
@@ -21,8 +18,7 @@ module.exports = {
     },
     localStorage: false,
     rewriteRedirects: true,
-    fullPathRedirect: true,
-
+    fullPathRedirect: true
   },
   axios: {},
   build: {
@@ -51,7 +47,7 @@ module.exports = {
     // 'plugins/startup.js',
     // 'plugins/graphClient.js'
   ],
-  // rootDir: path.join(__dirname, 'client'),
+  rootDir: path.join(__dirname),
   router: {
     middleware: [
       'auth'

@@ -34,6 +34,7 @@ export default {
     </v-navigation-drawer>
     <v-toolbar app clipped-left dark color="primary">
       <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-title>FreeSWITCH Integration Server</v-toolbar-title>
     </v-toolbar>
     <v-content>
       <nuxt/>

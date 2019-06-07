@@ -6,9 +6,11 @@ module.exports = {
   login: async function (ctx) {
     let { password } = ctx.request.body
 
-    if (password === config.fsis.password) {
-      ctx.state.session.loggedIn = true
+    if (password !== config.fsis.password) {
+      ctx.throw(400, 'Invalid password, try again.')
     }
+
+    ctx.state.session.loggedIn = true
 
     ctx.body = {
       token: ctx.state.token
@@ -17,7 +19,7 @@ module.exports = {
 
   logout: async function (ctx) {
     ctx.state.session = {}
-    ctx.body = {}
+    ctx.body = { success: true }
   },
 
   user: async function (ctx) {
