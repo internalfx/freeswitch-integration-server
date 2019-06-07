@@ -18,7 +18,7 @@ module.exports = {
     'nedb'
   ],
   session: {
-    sessionCookieName: 'x-fsis-token',
+    sessionCookieName: 'auth.fsis.local',
     sessionCookieMaxAge: 1000 * 60 * 60 * 24 * 365
   },
   templateEngine: 'ejs'

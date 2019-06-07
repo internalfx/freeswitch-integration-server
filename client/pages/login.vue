@@ -1,7 +1,9 @@
 
 <script>
+import { to } from '../../lib/utils.js'
+
 export default {
-  auth: false,
+  auth: 'guest',
   data: function () {
     return {
       error: null,
@@ -14,11 +16,11 @@ export default {
   methods: {
     submit: async function () {
       this.error = null
-      let res = await this.$auth.loginWith('local', {
+      let res = await to(this.$auth.loginWith('local', {
         data: {
           password: this.password
         }
-      })
+      }))
       if (res.isError) {
         this.error = res.response.data
       } else {
@@ -26,8 +28,7 @@ export default {
       }
     },
     clear: function () {}
-  },
-  middleware: ['noLogin']
+  }
 }
 </script>
 

@@ -8,19 +8,23 @@ module.exports = {
         endpoints: {
           login: { url: '/api/auth/login', method: 'post', propertyName: 'token' },
           logout: { url: '/api/auth/logout', method: 'post' },
-          user: { url: '/api/auth/user', method: 'post', propertyName: 'user' }
+          user: { url: '/api/auth/user', method: 'get', propertyName: 'user' }
         },
-        rewriteRedirects: true,
-        fullPathRedirect: true,
-        tokenRequired: false,
+        // rewriteRedirects: true,
+        // fullPathRedirect: true,
+        // tokenRequired: false,
         tokenType: false
       }
     },
     token: {
-      prefix: 'fsis'
+      prefix: 'fsis.'
     },
-    localStorage: false
+    localStorage: false,
+    rewriteRedirects: true,
+    fullPathRedirect: true,
+
   },
+  axios: {},
   build: {
     extend: function (config, { isDev, isClient }) {
       if (isDev && isClient) {
@@ -29,10 +33,12 @@ module.exports = {
     },
     extractCSS: true
   },
+  env: {},
   css: [
     '../node_modules/vuetify/dist/vuetify.css',
     '@/assets/application.scss'
   ],
+  // mode: 'spa',
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/auth'

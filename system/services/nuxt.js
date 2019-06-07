@@ -5,6 +5,7 @@ module.exports = async function (config) {
 
   // Config Overrides
   nuxtConfig.dev = (config.env !== 'production')
+  nuxtConfig.axios.baseURL = config.baseURL
 
   let nuxt = new Nuxt(nuxtConfig)
 

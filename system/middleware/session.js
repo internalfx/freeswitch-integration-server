@@ -26,11 +26,12 @@ module.exports = function (config) {
 
     if (token == null || token.length < 40) {
       token = createToken(40)
-      ctx.cookies.set(cookieName, token, { maxAge: config.session.sessionCookieMaxAge })
+      // ctx.cookies.set(cookieName, token, { maxAge: config.session.sessionCookieMaxAge })
     }
 
     let sessionRecord = await sessions.findOne({ token })
     ctx.state.session = sessionRecord ? sessionRecord.data : {}
+    ctx.state.token = token
 
     let prevSession = hash(ctx.state.session)
 

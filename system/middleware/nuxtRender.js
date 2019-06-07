@@ -5,15 +5,17 @@ module.exports = function (config) {
   let nuxt = substruct.services.nuxt
 
   return async function (ctx, next) {
-    ctx.status = 200
+    // console.log(ctx.status)
+    if (ctx.status === 404) {
+      ctx.status = 200
 
-    await new Promise((resolve, reject) => {
-      ctx.res.on('close', resolve)
-      ctx.res.on('finish', resolve)
-      nuxt.render(ctx.req, ctx.res, function (promise) {
-        promise.then(resolve).catch(reject)
+      await new Promise((resolve, reject) => {
+        ctx.res.on('close', resolve)
+        ctx.res.on('finish', resolve)
+        ctx.res.on('error', reject)
+        nuxt.render(ctx.req, ctx.res)
       })
-    })
+    }
 
     await next()
   }

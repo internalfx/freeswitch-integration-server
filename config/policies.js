@@ -1,4 +1,8 @@
 
 module.exports = {
-  '*': true
+  '*': true,
+
+  'loginController': {
+    '*': true
+  }
 }

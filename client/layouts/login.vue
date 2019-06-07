@@ -4,7 +4,7 @@
 <template>
   <v-app>
     <v-toolbar fixed app>
-      <v-toolbar-title>AAM</v-toolbar-title>
+      <v-toolbar-title>FreeSWITCH Integration Server</v-toolbar-title>
     </v-toolbar>
     <v-content>
       <nuxt/>

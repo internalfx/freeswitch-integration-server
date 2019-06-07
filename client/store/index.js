@@ -20,15 +20,9 @@ export const mutations = {
 
 export const actions = {
   nuxtServerInit: async function ({ commit }, { app, env }) {
-    commit('set', { baseURL: env.baseURL })
+    // commit('set', { baseURL: env.baseURL })
   }
 }
 
 export const getters = {
-  userRole: function (state) {
-    return _.get(state, 'auth.user.AAMRoleCode__c')
-  },
-  username: function (state) {
-    return _.get(state, 'auth.user.Username')
-  }
 }
