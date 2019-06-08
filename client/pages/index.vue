@@ -14,7 +14,9 @@ export default {
 </script>
 
 <template>
-  <p>Home</p>
+  <v-container>
+    <p>Home</p>
+  </v-container>
 </template>
 
 <style lang="scss" scoped>

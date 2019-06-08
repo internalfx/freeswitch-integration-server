@@ -6,12 +6,18 @@ let path = require('path')
 
 module.exports = async function (config) {
   let nedb = {}
+  let collectionList = [
+    'connections',
+    'sessions'
+  ]
 
-  nedb.sessions = new Collection({
-    filename: path.join(config.runDir, 'data_sessions'),
-    autoload: true,
-    timestampData: true
-  })
+  for (let collection of collectionList) {
+    nedb[collection] = new Collection({
+      filename: path.join(config.runDir, `data_${collection}`),
+      autoload: true,
+      timestampData: true
+    })
+  }
 
   for (let key of Object.keys(nedb)) {
     let collection = nedb[key]

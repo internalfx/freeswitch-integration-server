@@ -1,3 +1,11 @@
+require('@babel/register')({
+  cwd: __dirname,
+  plugins: ['@babel/plugin-transform-modules-commonjs'],
+  only: [
+    './lib/*'
+  ]
+})
+
 let argv = require('minimist')(process.argv.slice(2))
 let pjson = require('./package.json')
 let substruct = require('@internalfx/substruct')
