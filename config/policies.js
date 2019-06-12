@@ -4,5 +4,9 @@ module.exports = {
 
   'loginController': {
     '*': true
+  },
+
+  'v1.phoneController': {
+    '*': 'hasAccessToken'
   }
 }

@@ -1,17 +1,10 @@
 
 let substruct = require('@internalfx/substruct')
-
 let esl = require('modesl')
 let requireAll = require('require-all')
-
-
 let fsEventList = require('../../lib/fsEvents.js').default
-
-let del = require('del')
-let fs = require('fs')
 let path = require('path')
-let sox = require('sox.js')
-let rp = require('request-promise')
+let Promise = require('bluebird')
 
 module.exports = async function (config) {
   let conn
@@ -25,8 +18,8 @@ module.exports = async function (config) {
     console.log('ESL::Trying to connect to FreeSwitch...')
     conn = new esl.Connection(fsConf.host, fsConf.port, fsConf.password, onConnect)
 
-    conn.on('error', function () {
-      console.log('ESL::ERROR ===============================')
+    conn.on('error', function (err) {
+      console.log('ESL::ERROR ===============================', err)
       setTimeout(connect, 5000)
     })
   }
@@ -60,7 +53,16 @@ module.exports = async function (config) {
 
   connect()
 
+  let originate = async function (userExt, destination) {
+    if (conn) {
+      await Promise.fromCallback(function (cb) {
+        conn.api(`originate {origination_caller_id_number=${destination}}user/${userExt} ${destination} XML default`, [], cb)
+      })
+    }
+  }
+
   return {
-    connect
+    connect,
+    originate
   }
 }

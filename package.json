@@ -27,7 +27,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.4.4",
     "@babel/register": "^7.4.4",
     "@fortawesome/fontawesome-free": "^5.9.0",
-    "@internalfx/substruct": "^2.1.0",
+    "@internalfx/substruct": "^3.0.0",
     "@nuxtjs/apollo": "^4.0.0-rc6",
     "@nuxtjs/auth": "^4.6.6",
     "@nuxtjs/axios": "^5.5.4",

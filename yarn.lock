@@ -719,10 +719,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-5.9.0.tgz#1aa5c59efb1b8c6eb6277d1e3e8c8f31998b8c8e"
   integrity sha512-g795BBEzM/Hq2SYNPm/NQTIp3IWd4eXSH0ds87Na2jnrAUFX3wkyZAI4Gwj9DOaWMuz2/01i8oWI7P7T/XLkhg==
 
-"@internalfx/substruct@^2.1.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@internalfx/substruct/-/substruct-2.4.0.tgz#96c68c5c7982096815ff5e388ff6f5087a820da1"
-  integrity sha512-J+8b/AjerpBXKxO2yB5MAtBs8u96opoUgUj1ZpL3cgflp2haLvKr+1RheDfC2MkS8+Rk3K5d1sxpAYUnugIg0g==
+"@internalfx/substruct@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@internalfx/substruct/-/substruct-3.0.0.tgz#c1777c69e27131670658526165d509e1e7ccddb0"
+  integrity sha512-cw57Ob2sLcFt4D1u9/r7mOmg9GZos5zX8Xx5DNNgk4xQnmS2yKfQnFmLJcgPOFe59SBnt7Aj1EobkEJ8NYqA2A==
   dependencies:
     app-root-path "^2.2.1"
     bluebird "^3.5.5"
