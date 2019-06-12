@@ -199,8 +199,6 @@ module.exports = async function (evt, webhook) {
         del(file, { force: true })
       })
     }
-
-    console.log(cdr)
   } catch (err) {
     console.log(err)
   }
