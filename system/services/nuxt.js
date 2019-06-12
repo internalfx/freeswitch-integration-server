@@ -5,11 +5,14 @@ module.exports = async function (config) {
 
   // Config Overrides
   nuxtConfig.dev = (config.env !== 'production')
-  nuxtConfig.axios.baseURL = config.baseURL
+  nuxtConfig.axios.baseURL = config.fsis.externalHost
+  nuxtConfig.apollo.clientConfigs.default.httpEndpoint = `${config.fsis.externalHost}/api/graphql`
+
+  // console.dir(nuxtConfig, { depth: null })
 
   let nuxt = new Nuxt(nuxtConfig)
 
-  // if (nuxt.options.dev) {
+  // if (nuxt.options.dev || config.buildNuxt) {
   new Builder(nuxt).build()
   // }
 

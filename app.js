@@ -19,7 +19,7 @@ let HELPTEXT = `
     FreeSWITCH Integration Server v${pjson.version}
 
     OPTIONS
-    ===============================
+    ===================================================================
     --config      Specify path to config file, if not specified FSIS
                   will look for config.js in current working directory.
 `
@@ -44,6 +44,7 @@ let main = async function () {
   }
 
   substruct.configure({
+    // buildNuxt: argv.build,
     runDir: process.cwd(),
     appDir: __dirname,
     fsis: configFile
