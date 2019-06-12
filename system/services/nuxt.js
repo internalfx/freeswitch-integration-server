@@ -9,9 +9,9 @@ module.exports = async function (config) {
 
   let nuxt = new Nuxt(nuxtConfig)
 
-  if (nuxt.options.dev) {
-    new Builder(nuxt).build()
-  }
+  // if (nuxt.options.dev) {
+  new Builder(nuxt).build()
+  // }
 
   return nuxt
 }
