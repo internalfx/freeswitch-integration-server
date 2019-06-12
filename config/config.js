@@ -15,7 +15,8 @@ module.exports = {
   port: 8000,
   services: [
     'nuxt',
-    'nedb'
+    'nedb',
+    'freeswitch'
   ],
   session: {
     sessionCookieName: 'auth.fsis.local',

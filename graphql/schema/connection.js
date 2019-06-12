@@ -11,6 +11,8 @@ let typeDefs = gql`
     _id: ID
     title: String
     accessToken: String
+    createdAt: DateTime
+    updatedAt: DateTime
   }
 
   extend type Query {
@@ -19,6 +21,8 @@ let typeDefs = gql`
 
   extend type Mutation {
     createConnection (title: String!): Connection
+    deleteConnection (_id: ID!): Boolean
+    resetConnection (_id: ID!): Boolean
   }
 `
 
@@ -36,6 +40,14 @@ let resolvers = {
       }
       let connection = await ctx.nedb.connections.insert(data)
       return connection
+    },
+    deleteConnection: async function (obj, args, ctx, info) {
+      await ctx.nedb.connections.remove({ _id: args._id })
+      return true
+    },
+    resetConnection: async function (obj, args, ctx, info) {
+      await ctx.nedb.connections.update({ _id: args._id }, { $set: { accessToken: uniqueId(40) } })
+      return true
     }
   },
   Connection: {

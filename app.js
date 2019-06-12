@@ -62,6 +62,7 @@ let main = async function () {
     context: async function ({ ctx }) {
       let session = ctx.state.session
       let nedb = substruct.services.nedb
+      let freeswitch = substruct.services.freeswitch
 
       if (session.loggedIn !== true) {
         throw new AuthenticationError('You are not logged in')
@@ -69,13 +70,14 @@ let main = async function () {
 
       return {
         session,
-        nedb
+        nedb,
+        freeswitch
       }
     }
   })
 
   substruct.start().then(async function ({ koa, config }) {
-    apollo.applyMiddleware({ app: substruct.koa })
+    apollo.applyMiddleware({ app: substruct.koa, path: '/api/graphql' })
     console.log('Server Started...')
   }).catch(function (err) {
     console.error(err.stack)

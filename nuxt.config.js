@@ -2,6 +2,16 @@
 let path = require('path')
 
 module.exports = {
+  apollo: {
+    clientConfigs: {
+      default: {
+        httpEndpoint: `http://localhost:8000/api/graphql`,
+        httpLinkOptions: {
+          credentials: 'same-origin'
+        }
+      }
+    }
+  },
   auth: {
     strategies: {
       local: {
@@ -34,10 +44,14 @@ module.exports = {
     '../node_modules/vuetify/dist/vuetify.css',
     '@/assets/application.scss'
   ],
-  // mode: 'spa',
+  head: {
+    title: 'Freeswitch Integration Server'
+  },
+  mode: 'spa',
   modules: [
-    '@nuxtjs/axios',
-    '@nuxtjs/auth'
+    '@nuxtjs/apollo',
+    '@nuxtjs/auth',
+    '@nuxtjs/axios'
   ],
   // modulesDir: ['../node_modules'],
   plugins: [
