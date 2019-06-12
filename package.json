@@ -4,7 +4,7 @@
     "access": "public"
   },
   "description": "An open source API server for FreeSwitch",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "homepage": "https://github.com/internalfx/freeswitch-integration-server",
   "author": {
     "name": "Bryan Morris",
