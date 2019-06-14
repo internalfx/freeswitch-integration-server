@@ -53,7 +53,6 @@ module.exports = {
     '@nuxtjs/auth',
     '@nuxtjs/axios'
   ],
-  // modulesDir: ['../node_modules'],
   plugins: [
     // 'plugins/decycle.js',
     // 'plugins/vee-validate.js',
