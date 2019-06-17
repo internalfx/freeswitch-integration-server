@@ -21,6 +21,7 @@
   "bin": {
     "fsis": "./bin/fsis"
   },
+  "main": "app.js",
   "license": "MIT",
   "dependencies": {
     "@babel/core": "^7.4.5",

@@ -74,8 +74,19 @@ export default {
       </v-layout>
     </v-navigation-drawer>
     <v-toolbar app clipped-left dark color="primary">
-      <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-      <v-toolbar-title>FreeSWITCH Integration Server</v-toolbar-title>
+      <v-toolbar-title @click="$router.push('/')" class="clickable">FreeSWITCH Integration Server</v-toolbar-title>
+
+      <v-toolbar-items class="ml-5">
+        <v-btn flat to="/">
+          <v-icon left>fas fa-home</v-icon> Home
+        </v-btn>
+        <v-btn flat to="/connections">
+          <v-icon left>fas fa-plug</v-icon> Connections
+        </v-btn>
+        <v-btn flat to="/webhooks">
+          <v-icon left>fas fa-reply</v-icon> Webhooks
+        </v-btn>
+      </v-toolbar-items>
     </v-toolbar>
     <v-content>
       <nuxt/>

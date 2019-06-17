@@ -5,8 +5,8 @@ module.exports = async function (config) {
 
   // Config Overrides
   nuxtConfig.dev = (config.env !== 'production')
-  nuxtConfig.axios.baseURL = config.fsis.externalHost
-  nuxtConfig.apollo.clientConfigs.default.httpEndpoint = `${config.fsis.externalHost}/api/graphql`
+  nuxtConfig.axios.baseURL = config.fsis.baseURL
+  nuxtConfig.apollo.clientConfigs.default.httpEndpoint = `${config.fsis.baseURL}/api/graphql`
 
   // console.dir(nuxtConfig, { depth: null })
 

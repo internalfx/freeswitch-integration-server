@@ -39,7 +39,6 @@ module.exports = async function (config) {
     let webhooks = await nedb.webhooks.find({})
 
     for (let webhook of webhooks) {
-      console.log(webhook)
       let fsEvent = fsEventList.find(function (item) {
         return item.handler === webhook.event
       })

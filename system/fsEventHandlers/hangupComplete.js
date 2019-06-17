@@ -118,39 +118,6 @@ module.exports = async function (evt, webhook) {
 
     phoneNumbers = _.uniq(phoneNumbers)
 
-    await Promise.delay(2500)
-
-    let files = await Promise.fromCallback(function (cb) {
-      fs.readdir(settings.recordingsPath, cb)
-    })
-
-    let fileNames = files.filter(function (file) {
-      return file.includes(uuid)
-    })
-
-    let deleteList = []
-    let attachList = []
-
-    let recordings = await Promise.map(fileNames, async function (fileName) {
-      let wavFile = path.join(settings.recordingsPath, fileName)
-      let mp3File = wavFile.replace('.wav', '.mp3')
-      let basename = path.basename(mp3File)
-
-      await Promise.fromCallback(function (cb) {
-        sox({
-          inputFile: wavFile,
-          outputFile: mp3File
-        }, cb)
-      })
-
-      attachList.push(mp3File)
-
-      deleteList.push(wavFile)
-      deleteList.push(mp3File)
-
-      return basename
-    })
-
     let data = {
       uuid: uuid,
       callerName: first.callerName,
@@ -163,7 +130,7 @@ module.exports = async function (evt, webhook) {
       duration: duration,
 
       phoneNumbers: phoneNumbers,
-      recordings: recordings,
+      recordings: [],
 
       callFlow: callFlow,
 
@@ -175,26 +142,62 @@ module.exports = async function (evt, webhook) {
       method: 'POST',
       uri: webhook.url,
       formData: {
-        data: JSON.stringify(data)
       },
       headers: webhook.headers
     }
 
-    attachList.forEach(function (mp3File, idx) {
-      payload.formData[`recording${idx + 1}`] = {
-        value: fs.createReadStream(mp3File),
-        options: {
-          filename: path.basename(mp3File),
-          contentType: 'audio/mp3'
+    let deleteList = []
+    let attachList = []
+
+    if (settings.sendRecordings) {
+      await Promise.delay(2500)
+
+      let files = await Promise.fromCallback(function (cb) {
+        fs.readdir(settings.recordingsPath, cb)
+      })
+
+      let fileNames = files.filter(function (file) {
+        return file.includes(uuid)
+      })
+
+      data.recordings = await Promise.map(fileNames, async function (fileName) {
+        let wavFile = path.join(settings.recordingsPath, fileName)
+        let mp3File = wavFile.replace('.wav', '.mp3')
+        let basename = path.basename(mp3File)
+
+        await Promise.fromCallback(function (cb) {
+          sox({
+            inputFile: wavFile,
+            outputFile: mp3File
+          }, cb)
+        })
+
+        attachList.push(mp3File)
+
+        deleteList.push(wavFile)
+        deleteList.push(mp3File)
+
+        return basename
+      })
+
+      attachList.forEach(function (mp3File, idx) {
+        payload.formData[`recording${idx + 1}`] = {
+          value: fs.createReadStream(mp3File),
+          options: {
+            filename: path.basename(mp3File),
+            contentType: 'audio/mp3'
+          }
         }
-      }
-    })
+      })
+    }
+
+    payload.formData.data = JSON.stringify(data)
 
     await retry(function (retry, number) {
       return rp(payload).catch(retry)
     }, { retries: 20 })
 
-    if (settings.removeRecordings) {
+    if (settings.sendRecordings && settings.removeRecordings) {
       await Promise.map(deleteList, async function (file) {
         del(file, { force: true })
       })

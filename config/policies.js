@@ -1,6 +1,6 @@
 
 module.exports = {
-  '*': true,
+  '*': false,
 
   'loginController': {
     '*': true
